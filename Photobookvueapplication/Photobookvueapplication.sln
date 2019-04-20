@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Photobookvueapplication", "Photobookvueapplication\Photobookvueapplication.njsproj", "{5A4375C3-8778-4F06-BDA5-3FCEB7064BCF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A4375C3-8778-4F06-BDA5-3FCEB7064BCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A4375C3-8778-4F06-BDA5-3FCEB7064BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A4375C3-8778-4F06-BDA5-3FCEB7064BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A4375C3-8778-4F06-BDA5-3FCEB7064BCF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4BA2F797-8781-44C1-909C-4F858BBAA913}
+	EndGlobalSection
+EndGlobal
