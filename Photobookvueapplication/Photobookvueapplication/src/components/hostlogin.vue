@@ -16,12 +16,9 @@ import axios from 'axios';
 
     export default {
         methods: {
-            handleClick: function () {
-                alert('test')
-            },
             postHostLogin: function () {
                 return fetch(
-                    https://photobookwebapi1.azurewebsites.net/api/Account/Login,
+                    "https://photobookwebapi1.azurewebsites.net/api/Account/Login",
                     {
                     body: JSON.stringify({ HostEmail, HostPassword}),
                     ca
