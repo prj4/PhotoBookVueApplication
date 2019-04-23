@@ -51,6 +51,11 @@
     border-radius: 10px;
 }
 
+.topnav img:hover {
+    background-color: #f4766f;
+    color: white;
+    border-radius: 10px;
+}
 
 
 
