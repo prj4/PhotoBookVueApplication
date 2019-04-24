@@ -10,9 +10,6 @@
 </template>
 
 <script>
-    import JQuery from 'jquery'
-    let $ = JQuery
-
 
     export default {
 
@@ -41,7 +38,8 @@
                      
 
             }
-        },        data () {
+        },
+        data () {
             return {
                 HostEmail: null,
                 HostPassword: null,
