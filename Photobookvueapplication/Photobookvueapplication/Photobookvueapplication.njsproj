@@ -42,10 +42,10 @@
     <Content Include="src\components\Home.vue" />
     <Content Include="package.json" />
     <Content Include="README.md" />
-    <Content Include="src\components\hostlogin.vue">
+    <Content Include="src\components\HostHomePage.vue">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="src\components\navbar.vue">
+    <Content Include="src\components\hostlogin.vue">
       <SubType>Code</SubType>
     </Content>
   </ItemGroup>
