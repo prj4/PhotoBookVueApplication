@@ -33,9 +33,16 @@
                      mode: 'cors',
                      body: JSON.stringify(data)
                      
-                     }).then(response => response.json())
-                     .then(data => this.message = data)
-                     
+                 }).then(function (response) {
+                     const status = JSON.parse(response.status);
+
+                     if (status == '200') {
+                         alert("YES!!");
+                     }
+                     else {
+                         alert("Email or password was wrong")
+                     }
+                 })
 
             }
         },
