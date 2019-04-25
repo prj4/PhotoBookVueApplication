@@ -38,7 +38,8 @@
                      
 
             }
-        },        data () {
+        },
+        data () {
             return {
                 HostEmail: null,
                 HostPassword: null,

@@ -30,7 +30,7 @@
                 if (passWord !== confirmPassword) {
 
                     return false;
-                } 
+                }
 
                 fetch(url, {
                     method: 'POST',
@@ -53,6 +53,7 @@
 
             }
         }
+    }
 </script>
 
 <style scoped>

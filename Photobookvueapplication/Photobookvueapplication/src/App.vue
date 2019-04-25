@@ -13,7 +13,7 @@
 
         </header>
 
-        <br /> <br />
+        <br /> 
 
         <router-view></router-view>
 

@@ -1,9 +1,12 @@
 ﻿<template>
-    <div id="Wrapper">
-        
-            <input class="textbox" type="email" v-model="HostEmail" placeholder="Email" /> <br /> <br />
-            <input class="textbox" type="password" v-model="HostPassword" placeholder="Password" /> <br /> <br />
-            <input class="button" type="button" v-on:click="postHostLogin" value="Click to login as host" width="100px" Height="50px" /> <br />
+    <div id="WrapperInternalPage" class="wrapper">
+        <a class="alignleft">Welcome {{HostName}} </a>
+        <input class="smallbuttonright" type="button"  value="Add Event"/>
+        <input class="smallbuttonright" type="button"  value="Delete Event"/>
+        <input class="smallbuttonright" type="button" value="Logout"/>
+
+
+        <br />
         
     </div>
 </template>
@@ -17,8 +20,9 @@
         },
         data() {
             return {
-                HostEmail: null,
+                HostEmail: "Børge",
                 HostPassword: null,
+                HostName: "Børge"
             }
         },
         name: 'HostHomePage',
