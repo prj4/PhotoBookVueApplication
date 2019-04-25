@@ -4,7 +4,7 @@
         <header class="topnav">
             <nav>
                 <router-link tag="img" src="images/titleonlyp.png" class="alignleft" to="/"></router-link>
-                <router-link  to="/HostSignUp"> Signup as Event Host</router-link>
+                <router-link class="alignleft" to="/HostSignUp"> Signup as Event Host</router-link>
                 
                 <a class="alignright"> Privacy</a>
                 <a class="alignright"> About Photobook</a>
