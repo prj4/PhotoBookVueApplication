@@ -5,9 +5,13 @@
             <input class="textbox" type="navn" v-model="HostName" placeholder="Name" /> <br /> <br />
             <input class="textbox" type="email" v-model="HostEmail" placeholder="Email" /> <br /> <br />
             <input class="textbox" type="password" v-model="HostPassword" placeholder="Password" /> <br /> <br />
-            <input class="textbox" type="password" v-model="HostConfirmPassword" placeholder="Password" /> <br /> <br />
-            <input class="button" type="button" v-on:click="postHostLogin" value="Click to Sign up as host" width="100px" Height="50px" /> <br />
+            <input class="textbox" type="password" v-model="HostConfirmPassword" placeholder="Confirm Password" /> <br /> <br />
+
         </form>
+        <router-link to="/hostlogin">
+            <button class="button" type="button" width="100px" Height="50px"> Sign up as Host</button>
+        </router-link>
+
     </div>
 </template>
 
@@ -25,11 +29,13 @@
                     passWord: this.HostPassword,
                     confirmPassword: this.ConfirmPassword,
 
-                };
 
-                if (passWord !== confirmPassword) {
+                };
+                if (this.HostPassword!== this.ConfirmPassword) {
 
                     return false;
+
+               
                 }
 
                 fetch(url, {
