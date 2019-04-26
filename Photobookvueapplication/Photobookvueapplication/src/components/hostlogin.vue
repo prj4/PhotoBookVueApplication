@@ -17,32 +17,61 @@
         methods: {
             postHostLogin: function () {
                 var url = 'https://photobookwebapi1.azurewebsites.net/api/Account/Login';
-                
-                var data = {
+
+                var dataToBeSend = {
                     userName: this.HostEmail,
                     passWord: this.HostPassword
+                    
                 };
-                
 
-                
-                 fetch(url,{
-                     method: 'POST',
-                     headers: new Headers({
-                         'Content-Type': 'application/json', 'Accept': 'application/json'
-                     }),
-                     mode: 'cors',
-                     body: JSON.stringify(data)
-                     
-                 }).then(function (response) {
+                //var datarecieved = this.datarecievedp;
+                var router = this.$router;
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: new Headers({
+                        'Content-Type': 'application/json', 'Accept': 'application/json'
+                    }),
+                    mode: 'cors',
+                    body: JSON.stringify(dataToBeSend)
+
+                }).then(function (response) {
+                    if (response.status == '200' || response.status == '204') {
+                        router.push({ name: 'HostHomePage', params: {HostEmail: dataToBeSend.userName} })
+                    }
+                    else {
+                        alert("Email or password was wrong")
+                    }
+                    
+                    })
+
+                    //response.json().then(data => ({ status: response.status, body: data })). then(function (data) {
+
+
+                    /*
+                    .then(r => r.json().then(data => ({ status: r.status, body: data }))).
+                    then(function (data) {
+                        if (data.status == '200' || data.status == '204') {
+                            router.push({ name: 'HostHomePage'/*, params: {Id: data.body.hostId, Name: data.body.name} })
+                        }
+                        else {
+                            alert("Email or password was wrong")
+                        }
+
+                    });
+                    */
+
+                     /*then(function (response) {
                      const status = JSON.parse(response.status);
-
+                    
+                     alert(datarecieved.name);
                      if (status == '200') {
-                         alert("YES!!");
+                         router.push({ name: 'HostHomePage' })
                      }
                      else {
                          alert("Email or password was wrong")
                      }
-                 })
+                 })*/
 
             }
         },
@@ -50,11 +79,14 @@
             return {
                 HostEmail: null,
                 HostPassword: null,
+                HostId: null,
+                HostName: null
+                
                 }
         },
         name: 'hostlogin',
         props: {
-            msg: String
+            
         }
 
 

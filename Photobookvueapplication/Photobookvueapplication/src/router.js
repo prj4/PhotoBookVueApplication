@@ -30,7 +30,7 @@ export default new Router({
             path: "/HostHomePage",
             name: "HostHomePage",
             component: HostHomePage
-        },
+        }
         
     ]
 });

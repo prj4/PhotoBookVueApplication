@@ -5,7 +5,6 @@
         <input class="smallbuttonright" type="button"  value="Delete Event"/>
         <input class="smallbuttonright" type="button" value="Logout"/>
 
-
         <br />
         
     </div>
@@ -16,22 +15,43 @@
 
 
         methods: {
-            
+            getData: function () {
+                var url = 'https://photobookwebapi1.azurewebsites.net/api/Account/' + this.HostEmail;
+
+                var vuecomponent = this;
+
+                fetch(url).then(function (response) {
+                    if (response.status == '200') {
+                        response.json().then(data => ({ body: data })).
+                            then(function (data) {
+                                vuecomponent.HostName = data.body.name;
+                            })
+                    }
+                    else {
+                        alert("Error return to start page")
+                    }
+                })
+
+
+
+            }
         },
         data() {
             return {
-                HostEmail: "Børge",
+                HostEvents: [],
+                HostName: null,
                 HostPassword: null,
-                HostName: "Børge"
+                HostEmail: this.$route.params.HostEmail,
             }
+        },
+        beforeMount(){
+            this.getData()
         },
         name: 'HostHomePage',
         props: {
-            msg: String,
-            
-
-
         }
+        
+        
 
 
 
