@@ -2,10 +2,10 @@
     <div id="Wrapper">
         <img src="images/photobooktitle.png" width="90%" height="90%" />
         <form>
-            <input class="textbox" type="navn" v-model="HostName" placeholder="Name" /> <br /> <br />
-            <input class="textbox" type="email" v-model="HostEmail" placeholder="Email" /> <br /> <br />
-            <input class="textbox" type="password" v-model="HostPassword" placeholder="Password" /> <br /> <br />
-            <input class="textbox" type="password" v-model="HostConfirmPassword" placeholder="Confirm Password" /> <br /> <br />
+            <input class="textbox" type="name" v-model="HostName" placeholder="Name" required /> <br /> <br />
+            <input class="textbox" type="email" v-model="HostEmail" placeholder="Email" required /> <br /> <br />
+            <input class="textbox" type="password" v-model="HostPassword" placeholder="Password" required pattern="[\w]{6,}"/> <br /> <br />
+            <input class="textbox" type="password" v-model="HostConfirmPassword" placeholder="Confirm Password" required pattern="[\w]{6,}"/> <br /> <br />
 
         </form>
         <router-link to="/hostlogin">
