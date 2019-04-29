@@ -39,6 +39,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\App.vue" />
+    <Content Include="src\components\AddEvent.vue">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\components\Home.vue" />
     <Content Include="package.json" />
     <Content Include="README.md" />

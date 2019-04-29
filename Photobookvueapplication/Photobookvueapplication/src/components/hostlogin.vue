@@ -15,6 +15,12 @@
 
 
         methods: {
+            autoLogin: function () {
+                if (this.$cookie.get('LoggedIn') == 'True') {
+                    var Email = this.$cookie.get('LoggedInEmail'); 
+                    this.$router.push({ name: 'HostHomePage', params: { HostEmail: Email } })
+                }
+            },
             postHostLogin: function () {
                 var url = 'https://photobookwebapi1.azurewebsites.net/api/Account/Login';
 
@@ -26,53 +32,34 @@
 
                 //var datarecieved = this.datarecievedp;
                 var router = this.$router;
+                var cookie = this.$cookie;
+                var vuecomponent = this;
 
-                fetch(url, {
-                    method: 'POST',
-                    headers: new Headers({
-                        'Content-Type': 'application/json', 'Accept': 'application/json'
-                    }),
-                    mode: 'cors',
-                    body: JSON.stringify(dataToBeSend)
+                if (cookie.get('LoggedIn') == 'True') {
+                    router.push({ name: 'HostHomePage', params: { HostEmail: dataToBeSend.userName } })
+                }
+                else {
+                    fetch(url, {
+                        method: 'POST',
+                        headers: new Headers({
+                            'Content-Type': 'application/json', 'Accept': 'application/json'
+                        }),
+                        mode: 'cors',
+                        body: JSON.stringify(dataToBeSend)
 
-                }).then(function (response) {
-                    if (response.status == '200' || response.status == '204') {
-                        router.push({ name: 'HostHomePage', params: {HostEmail: dataToBeSend.userName} })
-                    }
-                    else {
-                        alert("Email or password was wrong")
-                    }
-                    
-                    })
-
-                    //response.json().then(data => ({ status: response.status, body: data })). then(function (data) {
-
-
-                    /*
-                    .then(r => r.json().then(data => ({ status: r.status, body: data }))).
-                    then(function (data) {
-                        if (data.status == '200' || data.status == '204') {
-                            router.push({ name: 'HostHomePage'/*, params: {Id: data.body.hostId, Name: data.body.name} })
+                    }).then(function (response) {
+                        if (response.status == '200' || response.status == '204') {
+                            cookie.set('LoggedIn', 'True', { expires: '4h' })
+                            cookie.set('LoggedInEmail', vuecomponent.HostEmail, { expires: '4h' })
+                            router.push({ name: 'HostHomePage', params: { HostEmail: dataToBeSend.userName } })
                         }
                         else {
                             alert("Email or password was wrong")
                         }
 
-                    });
-                    */
-
-                     /*then(function (response) {
-                     const status = JSON.parse(response.status);
-                    
-                     alert(datarecieved.name);
-                     if (status == '200') {
-                         router.push({ name: 'HostHomePage' })
-                     }
-                     else {
-                         alert("Email or password was wrong")
-                     }
-                 })*/
-
+                    })
+                }
+                 
             }
         },
         data () {
@@ -83,6 +70,9 @@
                 HostName: null
                 
                 }
+        },
+        beforeMount() {
+            this.autoLogin()
         },
         name: 'hostlogin',
         props: {

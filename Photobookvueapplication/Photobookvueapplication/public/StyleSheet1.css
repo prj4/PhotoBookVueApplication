@@ -73,6 +73,16 @@ h1 {
     font-family: 'Open Sans', sans-serif;
 }
 
+.bigtextbox {
+    width: 200px;
+    height: 90px;
+    border-radius: 8px;
+    border-style: none;
+    text-align: center;
+    font-weight: 500;
+    font-family: 'Open Sans', sans-serif;
+}
+
 .button {
     width: 200px;
     height: 30px;
@@ -112,8 +122,10 @@ h1 {
     
 }
 
-.wrapper a {
-    color: #f2f2f2;
+.Wrapper h1{
+    padding-bottom: 15px;
+    margin: 0px;
+    color: white;
 }
 
 #WrapperInternalPage {
@@ -127,6 +139,7 @@ h1 {
     padding: 20px;
     overflow-x: hidden;
     overflow-x: auto;
+    
 }
 
 body {

@@ -1,12 +1,14 @@
 ﻿<template>
-    <div id="WrapperInternalPage" class="wrapper">
+    <div id="WrapperInternalPage" class="Wrapper">
         <a class="alignleft">Welcome {{HostName}} </a>
-        <input class="smallbuttonright" type="button"  value="Add Event"/>
-        <input class="smallbuttonright" type="button"  value="Delete Event"/>
-        <input class="smallbuttonright" type="button" value="Logout"/>
+        <router-link to="/AddEvent">
+            <input class="smallbuttonright" type="button" value="Add Event" />
+        </router-link>
+            <input class="smallbuttonright" type="button" value="Delete Event" />
+            <input class="smallbuttonright" type="button" value="Logout" />
 
-        <br />
-        
+            <br />
+
     </div>
 </template>
 
@@ -31,6 +33,8 @@
                         alert("Error return to start page")
                     }
                 })
+
+                
 
 
 
