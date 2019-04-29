@@ -128,6 +128,10 @@ h1 {
     color: white;
 }
 
+.Wrapper a {
+
+    color: white;
+}
 #WrapperInternalPage {
     margin: auto;
     max-width: 70%;

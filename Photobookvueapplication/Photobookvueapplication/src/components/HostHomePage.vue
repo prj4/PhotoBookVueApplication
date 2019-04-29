@@ -5,7 +5,7 @@
             <input class="smallbuttonright" type="button" value="Add Event" />
         </router-link>
             <input class="smallbuttonright" type="button" value="Delete Event" />
-            <input class="smallbuttonright" type="button" value="Logout" />
+            <input class="smallbuttonright" type="button" v-on:click="Logout" value="Logout" />
 
             <br />
 
@@ -17,6 +17,34 @@
 
 
         methods: {
+            Logout: function () {
+                var url = 'https://photobookwebapi1.azurewebsites.net/api/Account/Logout';
+
+                //var datarecieved = this.datarecievedp;
+                var router = this.$router;
+                var cookie = this.$cookie;
+
+
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: new Headers({
+                        'Content-Type': 'application/json', 'Accept': 'application/json'
+                    }),
+                    mode: 'cors'
+                }).then(function (response) {
+                    if (response.status == '200' || response.status == '204') {
+                        cookie.delete('LoggedIn')
+                        cookie.delete('LoggedInEmail')
+                        router.push({ name: 'Home'})
+                        
+                    }
+                    else {
+                        alert("Failed to log out")
+                    }
+
+                })
+            },
             getData: function () {
                 var url = 'https://photobookwebapi1.azurewebsites.net/api/Account/' + this.HostEmail;
 
@@ -33,11 +61,6 @@
                         alert("Error return to start page")
                     }
                 })
-
-                
-
-
-
             }
         },
         data() {
