@@ -1,7 +1,7 @@
 ﻿<template>
     <div id="Wrapper">
         <img src="images/photobooktitle.png" width="90%" height="90%" />
-        <form>
+        <form id="signup" method="post" @submit="postHostSignUp" >
             <input class="textbox" type="name" v-model="HostName" placeholder="Name" required /> <br /> <br />
             <input class="textbox" type="email" v-model="HostEmail" placeholder="Email" required /> <br /> <br />
             <input class="textbox" type="password" v-model="HostPassword" placeholder="Password" required pattern="[\w]{6,}"/> <br /> <br />
@@ -16,50 +16,48 @@
 </template>
 
 <script>
+    const apiUrl = 'https://photobookwebapi1.azurewebsites.net/api/Account/Host';
 
-    export default {
-
+    const signup = new Vue({
+        el: '#signup',
+        data: {
+            errors: [],
+            name:''
+        },
         methods: {
-            postHostSignUp: function () {
+            postHostSignUp: function (e) {
+                e.preventDefault();
+
                 var url = 'https://photobookwebapi1.azurewebsites.net/api/Account/Host';
 
                 var data = {
                     userName: this.HostName,
                     email: this.HostEmail,
                     passWord: this.HostPassword,
-                    confirmPassword: this.ConfirmPassword,
-
-
+                    confirmPassword: this.confirmPassword,
                 };
-                if (this.HostPassword!== this.ConfirmPassword) {
 
-                    return false;
+                this.errors = [];
 
-               
+                if (this.HostName === '') {
+                    this.errors.push('Name is required');
+                } else {
+                    fetch(apiURL + encodeURIComponent(this.HostName))
+                        .then(res => res.json())
+                        .then(res => {
+                            if (res.error) {
+                                this.errors.push(res.error);
+                            } else {
+                                alert("You are now signed up as a Host")
+                            }
+                        });
                 }
-
-                fetch(url, {
-                    method: 'POST',
-                    headers: new Headers({
-                        'Content-Type': 'application/json', 'Accept': 'application/json'
-                    }),
-                    mode: 'cors',
-                    body: JSON.stringify(data)
-
-                }).then(response => response.json())
-                    .then(data => this.message = data)
-            }
-        },
-        data() {
-            return {
-                HostName: null,
-                HostEmail: null,
-                HostPassword: null,
-                HostConfirmPassword: null
-
+            
             }
         }
-    }
+    })
+
+
 </script>
 
 <style scoped>
