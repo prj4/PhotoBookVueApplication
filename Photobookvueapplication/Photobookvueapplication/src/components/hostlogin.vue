@@ -15,46 +15,68 @@
 
 
         methods: {
+            autoLogin: function () {
+                if (this.$cookie.get('LoggedIn') == 'True') {
+                    var Email = this.$cookie.get('LoggedInEmail'); 
+                    this.$router.push({ name: 'HostHomePage', params: { HostEmail: Email } })
+                }
+            },
             postHostLogin: function () {
                 var url = 'https://photobookwebapi1.azurewebsites.net/api/Account/Login';
-                
-                var data = {
+
+                var dataToBeSend = {
                     userName: this.HostEmail,
                     passWord: this.HostPassword
+                    
                 };
-                
 
-                
-                 fetch(url,{
-                     method: 'POST',
-                     headers: new Headers({
-                         'Content-Type': 'application/json', 'Accept': 'application/json'
-                     }),
-                     mode: 'cors',
-                     body: JSON.stringify(data)
-                     
-                 }).then(function (response) {
-                     const status = JSON.parse(response.status);
+                //var datarecieved = this.datarecievedp;
+                var router = this.$router;
+                var cookie = this.$cookie;
+                var vuecomponent = this;
 
-                     if (status == '200') {
-                         alert("YES!!");
-                     }
-                     else {
-                         alert("Email or password was wrong")
-                     }
-                 })
+                if (cookie.get('LoggedIn') == 'True') {
+                    router.push({ name: 'HostHomePage', params: { HostEmail: dataToBeSend.userName } })
+                }
+                else {
+                    fetch(url, {
+                        method: 'POST',
+                        headers: new Headers({
+                            'Content-Type': 'application/json', 'Accept': 'application/json'
+                        }),
+                        mode: 'cors',
+                        body: JSON.stringify(dataToBeSend)
 
+                    }).then(function (response) {
+                        if (response.status == '200' || response.status == '204') {
+                            cookie.set('LoggedIn', 'True', { expires: '4h' })
+                            cookie.set('LoggedInEmail', vuecomponent.HostEmail, { expires: '4h' })
+                            router.push({ name: 'HostHomePage', params: { HostEmail: dataToBeSend.userName } })
+                        }
+                        else {
+                            alert("Email or password was wrong")
+                        }
+
+                    })
+                }
+                 
             }
         },
         data () {
             return {
                 HostEmail: null,
                 HostPassword: null,
+                HostId: null,
+                HostName: null
+                
                 }
+        },
+        beforeMount() {
+            this.autoLogin()
         },
         name: 'hostlogin',
         props: {
-            msg: String
+            
         }
 
 
