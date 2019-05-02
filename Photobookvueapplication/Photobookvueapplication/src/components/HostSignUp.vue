@@ -16,46 +16,44 @@
 </template>
 
 <script>
-    const apiUrl = 'https://photobookwebapi1.azurewebsites.net/api/Account/Host';
+    export default {
 
-    const signup = new Vue({
-        el: '#signup',
-        data: {
-            errors: [],
-            name:''
-        },
         methods: {
-            postHostSignUp: function (e) {
-                e.preventDefault();
-
-                var url = 'https://photobookwebapi1.azurewebsites.net/api/Account/Host';
+            postHostSignUp: function () {
+                var url = 'https://photobookwebapi1.azurewebsites.net/api/Account/Host'
 
                 var data = {
                     userName: this.HostName,
                     email: this.HostEmail,
                     passWord: this.HostPassword,
-                    confirmPassword: this.confirmPassword,
+                    confirmPassword: this.ConfirmPassword,
                 };
 
-                this.errors = [];
 
-                if (this.HostName === '') {
-                    this.errors.push('Name is required');
-                } else {
-                    fetch(apiURL + encodeURIComponent(this.HostName))
-                        .then(res => res.json())
-                        .then(res => {
-                            if (res.error) {
-                                this.errors.push(res.error);
-                            } else {
-                                alert("You are now signed up as a Host")
-                            }
-                        });
-                }
-            
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: new Headers({
+                        'Content-Type': 'application/json', 'Accept': 'application/json'
+                    }),
+                    mode: 'cors',
+                    body: JSON.stringify(data)
+
+                }).then(response => response.json())
+                    .then(data => this.message = data)
+            }
+        },
+        data() {
+            return {
+                Errors: [],
+                HostName: null,
+                HostEmail: null,
+                HostPassword: null,
+                HostConfirmPassword: null
+
             }
         }
-    })
+    }
 
 
 </script>
