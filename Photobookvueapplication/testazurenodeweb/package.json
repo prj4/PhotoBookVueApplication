@@ -1,0 +1,14 @@
+{
+  "name": "testazurenodeweb",
+  "version": "0.0.0",
+  "description": "testazurenodeweb",
+  "scripts": {
+    "start": "node server"
+  },
+  "engines": {
+    "node": "~6.10.x"
+  },
+  "author": {
+    "name": ""
+  }
+}
