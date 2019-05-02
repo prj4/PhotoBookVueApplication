@@ -1,21 +1,24 @@
 ﻿<template>
     <div id="Wrapper" class="Wrapper">
-        <form>
+        <form >
             <h1>Add Event</h1> 
-            <input class="textbox" type="text" v-model="EventName" placeholder="Event Name" /> <br /> <br />
-            <input class="textbox" type="text" v-model="EventLocation" placeholder="Location" /> <br /> <br />
-            <input class="bigtextbox" type="text" v-model="EventDescription" placeholder="Description" /> <br /> <br />
-            <input class="textbox" type="datetime-local" v-model="StartDate" placeholder="Start Date" /> <br /> <br />
-            <input class="textbox" type="datetime-local" v-model="EndDate" placeholder="End Date" /> <br /> <br />
+            <input class="textbox" type="text" v-model="EventName" placeholder="Event Name" name="name"/> <br /> <br />
+            <input class="textbox" type="text" v-model="EventLocation" placeholder="Location" name="location"/> <br /> <br />
+            <input class="bigtextbox" type="text" v-model="EventDescription" placeholder="Description" name="description"/> <br /> <br />
+            <input class="textbox" type="datetime-local" v-model="StartDate" placeholder="Start Date" name="startDate"/> <br /> <br />
+            <input class="textbox" type="datetime-local" v-model="EndDate" placeholder="End Date" name="endDate"/> <br /> <br />
             <input class="button" type="button" v-on:click="postAddEvent" value="Click to create event" width="100px" Height="50px" /> <br />
         </form>
+
+        
     </div>
 </template>
 
 <script>
     export default {
 
-
+    //v-on:click="postAddEvent"
+        //method="post" action="https://photobookwebapi1.azurewebsites.net/api/Event"
         methods: {
             postAddEvent: function () {
                 var newurl = 'https://photobookwebapi1.azurewebsites.net/api/Event';
