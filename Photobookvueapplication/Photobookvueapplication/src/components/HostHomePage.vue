@@ -2,21 +2,32 @@
     <div id="WrapperInternalPage" class="Wrapper">
         <div>
             <a class="alignleft">Welcome {{HostName}} </a>
-            <router-link to="/AddEvent">
+            <!--<router-link to="/AddEvent">-->
                 <input class="smallbuttonright" type="button" value="Add Event" />
-            </router-link>
-            <input class="smallbuttonright" type="button" value="Delete Event" />
+            <!--</router-link>-->
             <input class="smallbuttonright" type="button" v-on:click="Logout" value="Logout" />
         </div>
 
         <br /> <br />
 
-        <div class="EventTile" v-for="HostEvent in HostEvents" v-bind:key="HostEvent.pin">
-            
-            EventName: {{HostEvent.name}} <br />
-            Pin: {{HostEvent.pin}}
-        </div>
+       
+               <div class="EventTile" v-for="HostEvent in HostEvents" v-bind:key="HostEvent.pin">
+                   <router-link tag="div" class="littlepadding" :to="{name: 'HostEventPage', params: {Email: HostEmail, HostName: HostName, EventName: HostEvent.name, Pin: HostEvent.pin}}">
+                      
+                       <table class="tg" align="left">
+                           <tr>
+                               <th class="tg-mcqj">EventName:</th>
+                               <th class="tg-73oq">{{HostEvent.name}}</th>
+                           </tr>
+                           <tr>
+                               <td class="tg-mcqj">Pin:</td>
+                               <td class="tg-73oq">{{HostEvent.pin}}</td>
+                           </tr>
+                       </table>
 
+                   </router-link>
+               </div>
+       
 
 
     </div>
@@ -120,4 +131,44 @@
 </script>
 
 <style scoped>
+
+    .tg {
+        border-collapse: collapse;
+        border-spacing: 0;
+        border: none;
+    }
+
+        .tg td {
+            font-size: 14px;
+            padding: 10px 5px;
+            border-style: solid;
+            border-width: 0px;
+            overflow: hidden;
+            word-break: normal;
+        }
+
+        .tg th {
+            
+            font-size: 14px;
+            font-weight: normal;
+            padding: 10px 5px;
+            border-style: solid;
+            border-width: 0px;
+            overflow: hidden;
+            word-break: normal;
+        }
+
+        .tg .tg-mcqj {
+            font-weight: bold;
+            border-color: #000000;
+            text-align: left;
+            vertical-align: top
+        }
+
+        .tg .tg-73oq {
+            border-color: #000000;
+            text-align: left;
+            vertical-align: top
+        }
+    
 </style>

@@ -6,6 +6,7 @@ import HostSignUp from "./components/HostSignUp.vue";
 import HostHomePage from "./components/HostHomePage.vue";
 import AddEvent from "./components/AddEvent.vue";
 import GuestEventPage from "./components/GuestEventPage.vue";
+import HostEventPage from "./components/HostEventPage.vue";
 
 Vue.use(Router);
 
@@ -42,6 +43,12 @@ export default new Router({
             path: "/GuestEventPage",
             name: "GuestEventPage",
             component: GuestEventPage
+        },
+        {
+            path: "/HostEventPage",
+            name: "HostEventPage",
+            component: HostEventPage,
+            props: true
         }
         
     ]

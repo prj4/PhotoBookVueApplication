@@ -28,6 +28,7 @@
                     Password: this.HostPassword,
                 };
 
+                vuecomponent = this;
                 
                 fetch(url, {
                     method: 'POST',
@@ -40,7 +41,10 @@
 
                 }).then(response => response.json())
                     .then(data => this.message = data)
-                    .then(function (data){
+                    .then(function (data) {
+                        if (vuecomponent.$cookie.get('LoggedIn') == "True") {
+                            vuecomponent.$cookie.set()
+                        }
 
                     })
                 
