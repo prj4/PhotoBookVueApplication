@@ -2,9 +2,9 @@
     <div id="WrapperInternalPage" class="Wrapper">
         <div>
             <a class="alignleft">Welcome {{HostName}} </a>
-            <!--<router-link to="/AddEvent">-->
+            <router-link to="/AddEvent">
                 <input class="smallbuttonright" type="button" value="Add Event" />
-            <!--</router-link>-->
+            </router-link>
             <input class="smallbuttonright" type="button" v-on:click="Logout" value="Logout" />
         </div>
 
