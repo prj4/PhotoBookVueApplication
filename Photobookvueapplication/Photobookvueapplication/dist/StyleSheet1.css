@@ -5,7 +5,7 @@
     background-image: url('../images/loginpagebackground.jpg');
     background-repeat: no-repeat;
     --background-size: 100%;
-    background-size: 1600px 1200px;
+    background-size: 2000px 1500px;
     font-family: 'Open Sans', sans-serif;
 }
 
@@ -95,9 +95,10 @@ h1 {
 }
 
 .smallbuttonright {
-    width: 100px;
+    width: 120px;
     height: 30px;
     margin: 5px;
+    font-size: 14px;
     border-radius: 8px;
     background-color: #F4766F;
     border-color: #F4766D;
@@ -105,7 +106,6 @@ h1 {
     color: #f2f2f2;
     font-weight: 500;
     font-family: 'Open Sans', sans-serif;
-    
 }
 
 #Wrapper {
@@ -143,8 +143,63 @@ h1 {
     padding: 20px;
     overflow-x: hidden;
     overflow-x: auto;
+}
+
+.EventTile {
+    color: black;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    max-width: 50%;
+    border-radius: 10px;
+    min-height: 100px;
+    display: flex;
+    flex-flow: column;
+}
+
+.littlepadding {
+    padding: 10px;
+    flex-grow: 1;
     
 }
 
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+
+.inputlabel {
+    display: block;
+    width: 120px;
+    max-height: 30px;
+    height:22px;
+    padding-top: 4px;
+    padding-right:6px;
+    padding-left: 6px;
+    margin: 5px;
+    font-size: 14px;
+    border-radius: 8px;
+    background-color: #F4766F;
+    border-color: #F4766D;
+    float: right;
+    border-width: 2px;
+    border-style: outset;
+    color: #f2f2f2;
+    font-weight: 500;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.inputlabel:active {
+        border-style: inset;
+}
+
+
 body {
- }
+}
