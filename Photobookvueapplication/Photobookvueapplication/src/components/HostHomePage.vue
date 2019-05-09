@@ -57,6 +57,9 @@
                     if (response.status == '200' || response.status == '204') {
                         cookie.delete('LoggedIn')
                         cookie.delete('LoggedInEmail')
+                        cookie.delete('LoggedInHostName')
+                        cookie.delete('currenteventpin')
+                        cookie.delete('currenteventname')
                         router.push({ name: 'Home' })
 
                     }
@@ -75,6 +78,7 @@
                         response.json().then(data => ({ body: data })).
                             then(function (data) {
                                 vuecomponent.HostName = data.body.name;
+                                vuecomponent.$cookie.set('LoggedInHostName', data.body.name)
                             })
                     }
                     else {
@@ -119,6 +123,9 @@
             }
         },
         beforeMount() {
+            
+            
+
             this.getData();
             this.getEvents();
         },

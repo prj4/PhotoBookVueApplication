@@ -64,6 +64,9 @@
         },
         props: {
             msg: String
+        },
+        beforeMount() {
+            
         }
         
     };

@@ -50,8 +50,9 @@
 
                     }).then(function (response) {
                         if (response.status == '200' || response.status == '204') {
-                            cookie.set('LoggedIn', 'True', { expires: '4h' })
-                            cookie.set('LoggedInEmail', vuecomponent.HostEmail, { expires: '4h' })
+                            cookie.set('LoggedIn', 'True')
+                            cookie.set('LoggedInEmail', vuecomponent.HostEmail)
+                            
                             router.push({ name: 'HostHomePage', params: { HostEmail: dataToBeSend.userName } })
                         }
                         else {

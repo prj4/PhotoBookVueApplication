@@ -35,6 +35,11 @@
     float: right;
 }
 
+.aligncenter {
+    margin:auto;
+    align-self:center;
+}
+
 .topnav a {
     --float: left;
     cursor: default;
@@ -95,7 +100,7 @@ h1 {
 }
 
 .smallbuttonright {
-    width: 120px;
+    width: 130px;
     height: 30px;
     margin: 5px;
     font-size: 14px;
@@ -103,6 +108,20 @@ h1 {
     background-color: #F4766F;
     border-color: #F4766D;
     float: right;
+    color: #f2f2f2;
+    font-weight: 500;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.smallbuttonleft {
+    width: 130px;
+    height: 30px;
+    margin: 5px;
+    font-size: 14px;
+    border-radius: 8px;
+    background-color: #F4766F;
+    border-color: #F4766D;
+    float: left;
     color: #f2f2f2;
     font-weight: 500;
     font-family: 'Open Sans', sans-serif;
@@ -177,7 +196,7 @@ h1 {
 
 .inputlabel {
     display: block;
-    width: 120px;
+    width: 130px;
     max-height: 30px;
     height:22px;
     padding-top: 4px;
@@ -188,7 +207,7 @@ h1 {
     border-radius: 8px;
     background-color: #F4766F;
     border-color: #F4766D;
-    float: right;
+    float: left;
     border-width: 2px;
     border-style: outset;
     color: #f2f2f2;
@@ -198,6 +217,37 @@ h1 {
 
 .inputlabel:active {
         border-style: inset;
+}
+
+.previewImg {
+    width: 100%;
+    height: 100%;
+    
+}
+
+.imgdiv {
+    float: left;
+    margin: 10px;
+    position: relative;
+}
+
+.btn {
+    position: absolute;
+    background-image: url(../images/clear.png);
+    background-size: 20px;
+    top: 1%;
+    left: 1%;
+    transform: translate(-5%, -5%);
+    -ms-transform: translate(-5%, -5%);
+    background-color: #5550;
+    color: white;
+    font-size: 5px;
+    padding: 10px 10px;
+    height: 20px;
+    width: 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
 
