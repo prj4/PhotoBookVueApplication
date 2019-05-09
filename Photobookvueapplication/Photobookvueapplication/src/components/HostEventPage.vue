@@ -10,17 +10,18 @@
                     </label>
 
                     <input name="file" id="file" class="inputfile" accept="image/*" type="file" @change="onFileChange" multiple>
-                    <!--<button class="smallbuttonleft" @click="onUpload">Upload</button>-->
-                    <input class="smallbutton" type="button" v-on:click="updatepage" value="Update" /> <br /> <br />
+                    <button class="smallbutton" @click="onUpload">Upload</button>
+                    <button class="smallbutton" @click="deleteEvent">Delete Event</button>
+                    <!--<input class="smallbutton" type="button" v-on:click="updatepage" value="Update" />--> <br /> <br />
                 </div>
             </div>
 
 
             <div class="ContentBox">
 
-                <div v-for="EventPhoto in EventPhotos" class="imgdiv">
-                    <router-link to="/">
-                        <img class="previewImg" :src="EventPhoto" /><br />
+                <div v-if="EventPhoto != null" v-for="(EventPhoto,index) in EventPhotos" v-bind:key="EventPhoto" class="imgdiv">
+                    <router-link :to="{name: 'HostBigPhotoPage', params: {PictureIDindex: index}}">
+                        <img  class="previewImg" :src="EventPhoto" /><br />
                     </router-link>
                 </div>
 
@@ -33,6 +34,26 @@
     export default {
 
         methods: {
+            deleteEvent: function () {
+                var url = 'https://photobookwebapi1.azurewebsites.net/api/Event/' + this.EventPin;
+                var vuecomponent = this;
+                
+                fetch(url, {
+                    method: 'DELETE',
+                    credentials: 'include',
+                    headers: new Headers({
+                        'Content-Type': 'application/json', 'Accept': 'application/json'
+                    }),
+                    mode: 'cors',
+                   
+                })
+                    .then(function (response) {
+                        if (response.status == '200' || response.status == '204') {
+                            vuecomponent.$router.push({ path: `/HostHomePage` })
+                        }
+                       
+                    })
+            },
             onFileChange: function (event) {
                 this.UploadPhotos.length = 0;
                 for (var i = 0; i < event.target.files.length; i++) {
@@ -48,8 +69,9 @@
                     let reader = new FileReader();
                     reader.readAsDataURL(this.UploadPhotos[i]);
                     reader.onload = function () {
-                        let base64Img = reader.result.replace("data:image/jpeg;base64,", "");
-
+                        let base64Img = reader.result.replace(/data:image\/png;base64,|data:image\/jpeg;base64,|data:image\/gif;base64,/gi, '');
+                        
+                        //data: image / gif; base64,
                         let dataToBeSend = {
                             pictureString: base64Img,
                             eventPin: vuecomponent.EventPin
@@ -70,7 +92,6 @@
                                 }
                                 vuecomponent.getEventPhotos();
                             })
-
 
                     }
 
@@ -105,12 +126,12 @@
                                 .then(function (data) {
                                     for (let i = 0; i < data.body.pictureList.length; i++) {
                                         vuecomponent.$set(vuecomponent.EventPhotoIDs, i, data.body.pictureList[i]);
-
+                                        
                                     }
-                                    vuecomponent.IDlength = vuecomponent.EventPhotoIDs.length;
-
+                                    
                                 })
                                 .then(function () {
+                                    vuecomponent.$cookie.set('currenteventphotoids', JSON.stringify(vuecomponent.EventPhotoIDs))
                                     vuecomponent.updatepage();
                                 })
                         }
@@ -119,7 +140,7 @@
 
             updatepage: async function () {
                 var vuecomponent = this;
-                let count = 0;
+                
                 for (let e = 0; e < vuecomponent.EventPhotoIDs.length; e++) {
 
                     let specificpictureurl = 'https://photobookwebapi1.azurewebsites.net/api/Picture/Preview/' + vuecomponent.EventPin + '/' + vuecomponent.EventPhotoIDs[e];
@@ -134,10 +155,13 @@
                                 response.blob()
                                     .then(image => {
                                         // Then create a local URL for that image and print it 
-                                        vuecomponent.$set(vuecomponent.EventPhotos, count, URL.createObjectURL(image));
-                                        count++;
+                                        vuecomponent.$set(vuecomponent.EventPhotos, e, URL.createObjectURL(image));
+                                        
 
                                     })
+                            }
+                            else {
+                                vuecomponent.$set(vuecomponent.EventPhotos, e, null);
                             }
 
                         })
@@ -149,7 +173,7 @@
         },
         data() {
             return {
-                IDlength: null,
+                
                 EventPhotoIDs: [/*...*/],
                 EventPhotos: [/*...*/],
                 UploadPhotos: [/*...*/],
@@ -166,6 +190,7 @@
             if (this.$cookie.get('currenteventname') == null) {
                 this.$cookie.set('currenteventname', this.$route.params.EventName)
                 this.$cookie.set('currenteventpin', this.$route.params.Pin)
+                
             }
             else if (this.$route.params.EventName != null && this.$cookie.get('currenteventname') != this.$route.params.EventName) {
                 this.$cookie.set('currenteventname', this.$route.params.EventName);
@@ -187,9 +212,6 @@
 </script>
 
 <style scoped>
-a{
-    margin-left:5px;
-   
-}
+
 
 </style>

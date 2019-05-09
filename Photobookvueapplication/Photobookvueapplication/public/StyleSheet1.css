@@ -23,8 +23,10 @@
     background-color: black;
     width: 90%;
     Margin: auto;
+    margin-bottom:10px;
     border-radius: 10px;
     overflow: hidden;
+
 }
 
 .alignleft {
@@ -38,7 +40,7 @@
 .aligncenter {
     margin: auto;
     display: inline-grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto;
     grid-template-rows: 40px 0px;
 }
 
@@ -47,7 +49,7 @@
     align-self: center;
     overflow-x: auto;
     overflow: auto;
-    max-height: 70vh;
+    max-height: 75vh;
 }
 
 .topnav a {
@@ -175,13 +177,14 @@ h1 {
     color: white;
 }
 #WrapperInternalPage {
-    margin:0 auto;
+    margin: 0 auto;
     width: 74%;
     text-align: center;
     background-color: black;
     box-shadow: 0px 0px 10px;
     border-radius: 10px;
     padding: 20px;
+    padding-top: 5px;
 }
 
 .EventTile {
@@ -258,6 +261,32 @@ h1 {
     display: inline-block;
 }
 
+.bigphotooutercontainer {
+    height: 75vh;
+    
+}
+
+.bigphotoinnecontainer {
+    height: 75vh;
+    max-width: 100%;
+    margin: 10px;
+    /* height: 174px; */
+    /* overflow: hidden; */
+    position: relative;
+    object-fit: contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.BigPhoto {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.bigphotobuttons {
+    margin:10px;
+}
 
 body {
 }
