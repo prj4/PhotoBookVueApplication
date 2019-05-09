@@ -1,33 +1,31 @@
 ﻿<template>
     <div id="WrapperInternalPage" class="Wrapper">
-        <div>
-            <a class="alignleft">    {{thisEventName}} hosted by {{EventHostName}}</a> <br /> 
-
-
-            <label class="inputlabel" for="file">
-                <span v-if="UploadPhotos.length > 0">{{UploadPhotos.length}} images selected</span>
-                <span v-else>Select images</span>
-            </label>
-
-            <input name="file" id="file" class="inputfile" accept="image/*" type="file" @change="onFileChange" multiple>
-            <button class="smallbuttonleft" @click="onUpload">Upload</button>
-            <input class="smallbuttonleft" type="button" v-on:click="updatepage" value="Update" /> <br /> <br />
-
-        </div>
-
-        <div class="aligncenter">
-            
-            <div v-for="EventPhoto in EventPhotos" class="imgdiv">
-                <router-link to="/">
-                    <img class="previewImg" :src="EventPhoto" /><br />
-                </router-link>
-                    <button class="btn"></button>
-            </div>
-            
-        </div>
-
         
+            <div class="WrapperTopNav">
+                <a>    {{thisEventName}} hosted by {{EventHostName}}</a> <br />
+                <div class="aligncenter">
+                    <label class="inputlabel" for="file">
+                        <span v-if="UploadPhotos.length > 0">{{UploadPhotos.length}} images selected</span>
+                        <span v-else>Select images</span>
+                    </label>
 
+                    <input name="file" id="file" class="inputfile" accept="image/*" type="file" @change="onFileChange" multiple>
+                    <!--<button class="smallbuttonleft" @click="onUpload">Upload</button>-->
+                    <input class="smallbutton" type="button" v-on:click="updatepage" value="Update" /> <br /> <br />
+                </div>
+            </div>
+
+
+            <div class="ContentBox">
+
+                <div v-for="EventPhoto in EventPhotos" class="imgdiv">
+                    <router-link to="/">
+                        <img class="previewImg" :src="EventPhoto" /><br />
+                    </router-link>
+                </div>
+
+            </div>
+        
     </div>
 </template>
 
@@ -70,6 +68,7 @@
                                 if (response.status != '200') {
                                     alert("Images failed to upload")
                                 }
+                                vuecomponent.getEventPhotos();
                             })
 
 
@@ -81,7 +80,7 @@
                     this.UploadPhotos.pop();
                 }
 
-                this.getEventPhotos();
+                
 
             },
             getEventPhotos: function () {
@@ -111,11 +110,14 @@
                                     vuecomponent.IDlength = vuecomponent.EventPhotoIDs.length;
 
                                 })
+                                .then(function () {
+                                    vuecomponent.updatepage();
+                                })
                         }
                     })
             },
 
-            updatepage: function () {
+            updatepage: async function () {
                 var vuecomponent = this;
                 let count = 0;
                 for (let e = 0; e < vuecomponent.EventPhotoIDs.length; e++) {
@@ -123,7 +125,7 @@
                     let specificpictureurl = 'https://photobookwebapi1.azurewebsites.net/api/Picture/Preview/' + vuecomponent.EventPin + '/' + vuecomponent.EventPhotoIDs[e];
 
 
-                    fetch(specificpictureurl, {
+                    await fetch(specificpictureurl, {
                         credentials: 'include',
                         mode: 'cors'
                     })

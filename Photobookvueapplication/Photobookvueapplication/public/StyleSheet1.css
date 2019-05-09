@@ -36,8 +36,18 @@
 }
 
 .aligncenter {
-    margin:auto;
-    align-self:center;
+    margin: auto;
+    display: inline-grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: 40px 0px;
+}
+
+.ContentBox {
+    margin: auto;
+    align-self: center;
+    overflow-x: auto;
+    overflow: auto;
+    max-height: 70vh;
 }
 
 .topnav a {
@@ -127,6 +137,19 @@ h1 {
     font-family: 'Open Sans', sans-serif;
 }
 
+.smallbutton {
+    width: 130px;
+    height: 30px;
+    margin: 5px;
+    font-size: 14px;
+    border-radius: 8px;
+    background-color: #F4766F;
+    border-color: #F4766D;
+    color: #f2f2f2;
+    font-weight: 500;
+    font-family: 'Open Sans', sans-serif;
+}
+
 #Wrapper {
     margin: auto;
     max-width: 50%;
@@ -152,16 +175,13 @@ h1 {
     color: white;
 }
 #WrapperInternalPage {
-    margin: auto;
-    max-width: 70%;
-    max-height: 80%;
+    margin:0 auto;
+    width: 74%;
     text-align: center;
     background-color: black;
     box-shadow: 0px 0px 10px;
     border-radius: 10px;
     padding: 20px;
-    overflow-x: hidden;
-    overflow-x: auto;
 }
 
 .EventTile {
@@ -171,15 +191,15 @@ h1 {
     margin-left: auto;
     margin-right: auto;
     background-color: white;
-    max-width: 50%;
+    width: 70%;
     border-radius: 10px;
     min-height: 100px;
-    display: flex;
-    flex-flow: column;
+    display: table;
+    padding: 5px;
 }
 
 .littlepadding {
-    padding: 10px;
+    padding: 5px;
     flex-grow: 1;
     
 }
@@ -207,7 +227,6 @@ h1 {
     border-radius: 8px;
     background-color: #F4766F;
     border-color: #F4766D;
-    float: left;
     border-width: 2px;
     border-style: outset;
     color: #f2f2f2;
@@ -227,27 +246,16 @@ h1 {
 
 .imgdiv {
     float: left;
+    width:30%;
+    height:30%;
     margin: 10px;
     position: relative;
 }
 
-.btn {
-    position: absolute;
-    background-image: url(../images/clear.png);
-    background-size: 20px;
-    top: 1%;
-    left: 1%;
-    transform: translate(-5%, -5%);
-    -ms-transform: translate(-5%, -5%);
-    background-color: #5550;
-    color: white;
-    font-size: 5px;
-    padding: 10px 10px;
-    height: 20px;
-    width: 20px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
+
+
+.WrapperTopNav {
+    display: inline-block;
 }
 
 
