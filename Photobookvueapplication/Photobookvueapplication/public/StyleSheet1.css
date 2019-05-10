@@ -40,7 +40,7 @@
 .aligncenter {
     margin: auto;
     display: inline-grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto auto auto;
     grid-template-rows: 40px 0px;
 }
 

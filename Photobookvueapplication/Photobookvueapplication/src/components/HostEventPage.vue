@@ -1,58 +1,120 @@
 ﻿<template>
     <div id="WrapperInternalPage" class="Wrapper">
-        
-            <div class="WrapperTopNav">
-                <a>    {{thisEventName}} hosted by {{EventHostName}}</a> <br />
-                <div class="aligncenter">
-                    <label class="inputlabel" for="file">
-                        <span v-if="UploadPhotos.length > 0">{{UploadPhotos.length}} images selected</span>
-                        <span v-else>Select images</span>
-                    </label>
 
-                    <input name="file" id="file" class="inputfile" accept="image/*" type="file" @change="onFileChange" multiple>
-                    <button class="smallbutton" @click="onUpload">Upload</button>
-                    <button class="smallbutton" @click="deleteEvent">Delete Event</button>
-                    <!--<input class="smallbutton" type="button" v-on:click="updatepage" value="Update" />--> <br /> <br />
-                </div>
+        <div class="WrapperTopNav">
+            <a>    {{thisEventName}} hosted by {{EventHostName}}</a> <br />
+            <div class="aligncenter">
+                <label class="inputlabel" for="file">
+                    <span v-if="UploadPhotos.length > 0">{{UploadPhotos.length}} images selected</span>
+                    <span v-else>Select images</span>
+                </label>
+
+                <input name="file" id="file" class="inputfile" accept="image/*" type="file" @change="onFileChange" multiple>
+                <button class="smallbutton" @click="onUpload">Upload</button>
+                <button class="smallbutton" @click="deleteEvent">Delete Event</button>
+                <button class="smallbutton" @click="downloadPhotos">Download All</button>
+            </div>
+        </div>
+
+
+        <div class="ContentBox">
+
+            <div v-if="EventPhoto != null" v-for="(EventPhoto,index) in EventPhotos" v-bind:key="EventPhoto" class="imgdiv">
+                <router-link :to="{name: 'HostBigPhotoPage', params: {PictureIDindex: index}}">
+                    <img class="previewImg" :src="EventPhoto" /><br />
+                </router-link>
             </div>
 
+        </div>
 
-            <div class="ContentBox">
-
-                <div v-if="EventPhoto != null" v-for="(EventPhoto,index) in EventPhotos" v-bind:key="EventPhoto" class="imgdiv">
-                    <router-link :to="{name: 'HostBigPhotoPage', params: {PictureIDindex: index}}">
-                        <img  class="previewImg" :src="EventPhoto" /><br />
-                    </router-link>
-                </div>
-
-            </div>
-        
     </div>
+    
 </template>
 
+
+
 <script>
+
+    import JSZip from 'jszip' 
+    import { saveAs } from 'file-saver';
+    
+
     export default {
 
         methods: {
-            deleteEvent: function () {
-                var url = 'https://photobookwebapi1.azurewebsites.net/api/Event/' + this.EventPin;
+            downloadPhotos:  function () {
+                var zip = new JSZip();
+                var count = 0;
+                var zipFilename = "Photos.zip";
                 var vuecomponent = this;
-                
-                fetch(url, {
-                    method: 'DELETE',
+                let FullSizePhotoArray = [/*...*/]
+                var promises = [];
+
+                for (let e = 0; e < vuecomponent.EventPhotoIDs.length; e++) {
+                    
+                let specificpictureurl = 'https://photobookwebapi1.azurewebsites.net/api/Picture/' + vuecomponent.EventPin + '/' + vuecomponent.EventPhotoIDs[e];
+
+                fetch(specificpictureurl, {
                     credentials: 'include',
-                    headers: new Headers({
-                        'Content-Type': 'application/json', 'Accept': 'application/json'
-                    }),
-                    mode: 'cors',
-                   
+                    mode: 'cors'
                 })
                     .then(function (response) {
-                        if (response.status == '200' || response.status == '204') {
-                            vuecomponent.$router.push({ path: `/HostHomePage` })
+                        if (response.status == '200') {
+                            response.blob()
+                                .then(image => {
+                                    // Then create a local URL for that image and print it 
+                                    FullSizePhotoArray[e] = URL.createObjectURL(image);
+
+                                    var filename = FullSizePhotoArray[e];
+                                    //Her skal tilføjes azurestring
+                                    filename = filename.replace(/[\/\*\|\:\<\>\?\"\\]/gi, '').replace("blobhttplocalhost1337", "");
+                                    // loading a file and add it in a zip file
+                                    JSZipUtils.getBinaryContent(FullSizePhotoArray[e], function (err, data) {
+                                        if (err) {
+                                            throw err; // or handle the error
+                                        }
+                                        zip.file(filename + '.jpg', data, { binary: true });
+                                        count++;
+                                        if (count == vuecomponent.EventPhotos.length) {
+                                            zip.generateAsync({ type: 'blob' }).then(function (content) {
+                                                saveAs(content, zipFilename);
+                                            });
+                                        }
+                                    });
+
+                                })
+
                         }
-                       
+                        else {
+                            FullSizePhotoArray[e] = null;
+                            count ++
+                        }
+                        })
+                }
+            
+                
+            },
+            deleteEvent: function () {
+                if (confirm("Are you sure that you want to delete " + this.EventName + "?")) {
+                    var url = 'https://photobookwebapi1.azurewebsites.net/api/Event/' + this.EventPin;
+                    var vuecomponent = this;
+
+                    fetch(url, {
+                        method: 'DELETE',
+                        credentials: 'include',
+                        headers: new Headers({
+                            'Content-Type': 'application/json', 'Accept': 'application/json'
+                        }),
+                        mode: 'cors',
+
                     })
+                        .then(function (response) {
+                            if (response.status == '200' || response.status == '204') {
+                                vuecomponent.$router.push({ path: `/HostHomePage` })
+                            }
+
+                        })
+                }
             },
             onFileChange: function (event) {
                 this.UploadPhotos.length = 0;
@@ -173,7 +235,7 @@
         },
         data() {
             return {
-                
+                zippedPhotos: null,
                 EventPhotoIDs: [/*...*/],
                 EventPhotos: [/*...*/],
                 UploadPhotos: [/*...*/],
