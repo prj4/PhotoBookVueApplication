@@ -1,16 +1,14 @@
 ﻿<template>
     <div id="Wrapper">
         <img src="images/photobooktitle.png" width="90%" height="90%" />
-        <form >
-            <input class="textbox" type="name" v-model="HostName" placeholder="Name" required /> <br /> <br />
-            <input class="textbox" type="email" v-model="HostEmail" placeholder="Email" required /> <br /> <br />
-            <input class="textbox" type="password" v-model="HostPassword" placeholder="Password" required pattern="[\w]{6,}"/> <br /> <br />
-            <input class="textbox" type="password" v-model="HostConfirmPassword" placeholder="Confirm Password" required pattern="[\w]{6,}"/> <br /> <br />
-
+        <form>
+            <input name="Name" class="textbox" type="text" v-model="HostName" placeholder="Name" /> <br /> <br />
+            <input name="Email" class="textbox" type="email" v-model="HostEmail" placeholder="Email" /> <br /> <br />
+            <input name="Password" class="textbox" type="text" v-model="HostPassword" placeholder="Password (min. 6 characters)" /> <br /> <br />
+            <input name="ConfirmPassword" class="textbox" type="text" v-model="HostConfirmPassword" placeholder="Confirm Password" /> <br /> <br />
+            <input class="button" v-on:click="postHostSignUp" @click.prevent="redirect" type="submit" value="Click to sign up as Host" width="100px" Height="50px" /><br />
         </form>
-        <router-link to="/hostlogin">
-            <button class="button" type="button" v-on:click="postHostSignUp" width="100px" Height="50px"> Sign up as Host</button>
-        </router-link>
+
 
     </div>
 </template>
@@ -19,49 +17,84 @@
     export default {
 
         methods: {
+
             postHostSignUp: function () {
+
                 var url = 'https://photobookwebapi1.azurewebsites.net/api/Account/Host'
 
+                
                 var data = {
                     Name: this.HostName,
                     Email: this.HostEmail,
                     Password: this.HostPassword,
+                    ConfirmPassWord: this.HostConfirmPassword
                 };
 
-                vuecomponent = this;
-                
+                if (this.HostName === null) {
+                    alert("Please enter a valid name");
+                    return false;
+                }
+
+                if (this.HostEmail === null) {
+                    alert("Please enter a valid email (1)");
+                    return false;
+                }
+
+
+                //if (this.HostEmail !== re) {
+                //    alert("Please enter a valid email (2)");
+                //    return false;
+                //}
+
+                if (this.HostPassword === null) {
+                    alert("Please enter valid passowrd");
+                    return false;
+                }
+
+                if (this.HostConfirmPassword !== this.HostPassword) {
+                    alert("The confirmed password does not match selected password");
+                    return false;
+                }
+
+
+                //var vuecomponent = this;
+                var router = this.$router;
+
                 fetch(url, {
                     method: 'POST',
                     credential: 'include',
                     headers: new Headers({
-                        'Content-Type': 'application/json', 'Accept': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
                     }),
                     mode: 'cors',
-                    body: JSON.stringify(data)
+                    body:
+                        JSON.stringify(data)
+                })
 
-                }).then(response => response.json())
-                    .then(data => this.message = data)
-                    .then(function (data) {
-                        if (vuecomponent.$cookie.get('LoggedIn') == "True") {
-                            vuecomponent.$cookie.set()
+                  .then(function (response) {
+                        if (response.status == '200') {
+                            router.push({ name: 'Home', params: { HostName: data.Name, HostEmail: data.Email, HostPassword: data.Password, } })
+                            alert('You are now signed up as a host')
+                        } else {
+                            alert("Error: Host could not be signed up");
                         }
 
                     })
-                
             }
+
         },
-        data() {
+        data: function () {
             return {
-                Errors: [],
                 HostName: null,
                 HostEmail: null,
                 HostPassword: null,
                 HostConfirmPassword: null
 
             }
-        }
-    }
+        },
 
+    }
 
 </script>
 
