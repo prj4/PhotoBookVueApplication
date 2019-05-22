@@ -3,7 +3,7 @@
 
         <div class="WrapperTopNav">
             <a>    {{thisEventName}} hosted by {{EventHostName}}</a> <br />
-            <div class="aligncenter">
+            <div>
                 <label class="inputlabel" for="file">
                     <span v-if="UploadPhotos.length > 0">{{UploadPhotos.length}} images selected</span>
                     <span v-else>Select images</span>
@@ -133,7 +133,7 @@
                     reader.onload = function () {
                         let base64Img = reader.result.replace(/data:image\/png;base64,|data:image\/jpeg;base64,|data:image\/gif;base64,/gi, '');
                         
-                        //data: image / gif; base64,
+                        
                         let dataToBeSend = {
                             pictureString: base64Img,
                             eventPin: vuecomponent.EventPin
@@ -207,7 +207,6 @@
 
                     let specificpictureurl = 'https://photobookwebapi1.azurewebsites.net/api/Picture/Preview/' + vuecomponent.EventPin + '/' + vuecomponent.EventPhotoIDs[e];
 
-
                     await fetch(specificpictureurl, {
                         credentials: 'include',
                         mode: 'cors'
@@ -219,7 +218,6 @@
                                         // Then create a local URL for that image and print it 
                                         vuecomponent.$set(vuecomponent.EventPhotos, e, URL.createObjectURL(image));
                                         
-
                                     })
                             }
                             else {

@@ -3,7 +3,9 @@
 
         <div class="bigphotooutercontainer" :key="BigPhoto">
             <div class="bigphotoinnecontainer">
-                <img class="BigPhoto" :src="BigPhoto"/>
+                <a :href="BigPhoto" download>
+                    <img class="BigPhoto" :src="BigPhoto"/>
+                </a>
             </div>
         </div>
 

@@ -9,10 +9,7 @@
         </div>
 
         <br /> <br />
-
-        
-
-               <div v-for="HostEvent in HostEvents" v-bind:key="HostEvent.pin">
+             <div v-for="HostEvent in HostEvents" v-bind:key="HostEvent.pin">
                    <router-link tag="div" class="littlepadding" :to="{name: 'HostEventPage', params: {Email: HostEmail, HostName: HostName, EventName: HostEvent.name, Pin: HostEvent.pin}}">
                        <div class="EventTile">
                             <table class="tg" align="left">
@@ -29,12 +26,9 @@
 
                        </div>
                    </router-link>
-               </div>
-
+              </div>
 
     </div>
-
-
 </template>
 
 <script>

@@ -1,5 +1,4 @@
 <template>
-    
     <div id="app">
         <header class="topnav">
             <nav>
@@ -12,10 +11,7 @@
 
 
         </header>
-
-
         <router-view></router-view>
-
     </div>
 </template>
 
