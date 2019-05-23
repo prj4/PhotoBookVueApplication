@@ -1,12 +1,23 @@
 ﻿body {
-    font-size: 1.5rem;
+    font-size: 2rem;
     width: 99%;
-    
-    background-image: url('../images/loginpagebackground.jpg');
+    /*background-image: url('../images/loginpagebackground.jpg');*/
+    background-image: url('https://picsum.photos/2000/1500');
     background-repeat: no-repeat;
     --background-size: 100%;
     background-size: 2000px 1500px;
     font-family: 'Open Sans', sans-serif;
+
+}
+
+#container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    pointer-events: none;
 }
 
 .topnav img {
@@ -50,15 +61,20 @@
     max-height: 75vh;
 }
 
-.topnav a {
-    --float: left;
-    cursor: default;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    font-size: 17px;
-    text-decoration: none;
-}
+    .ContentBox a{
+        font-size: 17px;
+
+    }
+
+    .topnav a {
+        --float: left;
+        cursor: default;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        font-size: 17px;
+        text-decoration: none;
+    }
 
 .topnav a:hover {
     background-color: #f4766f;
@@ -96,6 +112,10 @@ h1 {
     text-align: center;
     font-weight: 500;
     font-family: 'Open Sans', sans-serif;
+}
+
+::-webkit-input-placeholder { /* Webkit */
+    line-height: 90px;
 }
 
 .button {
@@ -161,7 +181,7 @@ h1 {
     padding: 20px;
     overflow-x: hidden; 
     overflow-x: auto;
-    
+    font-size: 30px;
 }
 
 .Wrapper h1{
@@ -189,6 +209,7 @@ h1 {
     color: black;
     margin-bottom: 10px;
     margin-top: 10px;
+    font-size: 20px;
     margin-left: auto;
     margin-right: auto;
     background-color: white;
@@ -265,6 +286,10 @@ h1 {
     
 }
 
+img {
+    
+}
+
 .bigphotoinnecontainer {
     height: 75vh;
     max-width: 100%;
@@ -281,6 +306,7 @@ h1 {
 .BigPhoto {
     max-width: 100%;
     max-height: 100%;
+    zoom: 4;    
 }
 
 .bigphotobuttons {

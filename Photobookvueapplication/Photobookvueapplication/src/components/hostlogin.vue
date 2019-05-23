@@ -16,12 +16,13 @@
 
         methods: {
             autoLogin: function () {
-                if (this.$cookie.get('LoggedIn') == 'True') {
+                if (this.$cookie.get('LoggedInHost') == 'True') {
                     var Email = this.$cookie.get('LoggedInEmail'); 
                     this.$router.push({ name: 'HostHomePage', params: { HostEmail: Email } })
                 }
             },
-            postHostLogin: function () {
+            postHostLogin: async function () {
+                await this.logout();
                 var url = 'https://photobookwebapi1.azurewebsites.net/api/Account/Login';
 
                 var dataToBeSend = {
@@ -35,10 +36,7 @@
                 var cookie = this.$cookie;
                 var vuecomponent = this;
 
-                if (cookie.get('LoggedIn') == 'True') {
-                    router.push({ name: 'HostHomePage', params: { HostEmail: dataToBeSend.userName } })
-                }
-                else {
+                
                     fetch(url, {
                         method: 'POST',
                         credentials: 'include',
@@ -50,9 +48,8 @@
 
                     }).then(function (response) {
                         if (response.status == '200' || response.status == '204') {
-                            cookie.set('LoggedIn', 'True')
+                            cookie.set('LoggedInHost', 'True')
                             cookie.set('LoggedInEmail', vuecomponent.HostEmail)
-                            
                             router.push({ name: 'HostHomePage', params: { HostEmail: dataToBeSend.userName } })
                         }
                         else {
@@ -60,9 +57,42 @@
                         }
 
                     })
-                }
+                
                  
+            },
+            logout: function () {
+                return new Promise((resolve,reject) => {
+
+                    var url = 'https://photobookwebapi1.azurewebsites.net/api/Account/Logout';
+
+                    //var datarecieved = this.datarecievedp;
+                    var router = this.$router;
+                    var cookie = this.$cookie;
+
+                     fetch(url, {
+                        method: 'POST',
+                        credentials: 'include',
+                        headers: new Headers({
+                            'Content-Type': 'application/json', 'Accept': 'application/json'
+                        }),
+                        mode: 'cors'
+                    }).then(function (response) {
+                        resolve()
+                        if (response.status == '200' || response.status == '204') {
+                            cookie.delete('LoggedInHost')
+                            cookie.delete('LoggedInGuest')
+                            cookie.delete('currenteventpin')
+                            cookie.delete('currenteventname')
+                            cookie.delete('currentguest')
+
+                        }
+                        else {
+                            alert("Failed to log out")
+                        }
+                    })
+                })
             }
+                
         },
         data () {
             return {

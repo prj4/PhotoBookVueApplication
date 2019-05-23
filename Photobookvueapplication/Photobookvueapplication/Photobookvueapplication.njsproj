@@ -34,8 +34,6 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="public\images\clear.png" />
-    <Content Include="public\images\loginpagebackground.jpg" />
     <Content Include="public\images\photobooktitle.png" />
     <Content Include="public\images\titleonlyp.png" />
     <Content Include="public\favicon.ico" />
@@ -45,6 +43,9 @@
     </Content>
     <Content Include="src\App.vue" />
     <Content Include="src\components\AddEvent.vue">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="src\components\GuestBigPhotoPage.vue">
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\components\GuestEventPage.vue">

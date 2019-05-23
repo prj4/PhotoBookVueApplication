@@ -8,6 +8,7 @@ import AddEvent from "./components/AddEvent.vue";
 import GuestEventPage from "./components/GuestEventPage.vue";
 import HostEventPage from "./components/HostEventPage.vue";
 import HostBigPhotoPage from "./components/HostBigPhotoPage.vue";
+import GuestBigPhotoPage from "./components/GuestBigPhotoPage.vue";
 
 Vue.use(Router);
 
@@ -57,6 +58,12 @@ export default new Router({
             component: HostBigPhotoPage,
             props: true
         },
+        {
+            path: "/GuestBigPhotoPage",
+            name: "GuestBigPhotoPage",
+            component: GuestBigPhotoPage,
+            props: true
+        }
         
     ]
 });

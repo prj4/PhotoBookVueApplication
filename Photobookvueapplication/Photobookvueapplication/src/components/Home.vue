@@ -22,10 +22,11 @@
         //name: 'Home',
         methods: {
             GuestLogin: function () {
-
+                this.logout();
 
                 var url = 'https://photobookwebapi1.azurewebsites.net/api/Account/Guest';
                 var router = this.$router;
+                var cookie = this.$cookie;
 
                 var dataToBeSend = {
                     Name: this.GuestName,
@@ -34,6 +35,7 @@
 
                 fetch(url, {
                     method: 'POST',
+                    credentials: 'include',
                     headers: new Headers({
                         'Content-Type': 'application/json', 'Accept': 'application/json'
                     }),
@@ -44,7 +46,8 @@
 
                     .then(function (response) {
                         if (response.status == '200' || response.status == '201') {
-                            alert('You are now signed in as a Guest')
+                            //alert('You are now signed in as a Guest')
+                            cookie.set('LoggedInGuest', 'True');
                             router.push({ name: 'GuestEventPage', params: { GuestName: dataToBeSend.Name, EventPin: dataToBeSend.Pin } })
                         }
                         else {
@@ -52,7 +55,37 @@
                         }
 
                     })
-            }
+            },
+            logout: function () {
+                var url = 'https://photobookwebapi1.azurewebsites.net/api/Account/Logout';
+
+                //var datarecieved = this.datarecievedp;
+                var router = this.$router;
+                var cookie = this.$cookie;
+
+                fetch(url, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: new Headers({
+                        'Content-Type': 'application/json', 'Accept': 'application/json'
+                    }),
+                    mode: 'cors'
+                }).then(function (response) {
+                    if (response.status == '200' || response.status == '204') {
+                        cookie.delete('LoggedInHost')
+                        cookie.delete('LoggedInGuest')
+                        cookie.delete('currenteventpin')
+                        cookie.delete('currenteventname')
+                        cookie.delete('currentguest')
+                        router.push({ name: 'Home' })
+
+                    }
+                    else {
+                        alert("Failed to log out")
+                    }
+                })
+            },
+
         },
         data() {
             return {

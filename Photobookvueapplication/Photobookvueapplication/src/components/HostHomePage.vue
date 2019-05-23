@@ -51,7 +51,7 @@
                     mode: 'cors'
                 }).then(function (response) {
                     if (response.status == '200' || response.status == '204') {
-                        cookie.delete('LoggedIn')
+                        cookie.delete('LoggedInHost')
                         cookie.delete('LoggedInEmail')
                         cookie.delete('LoggedInHostName')
                         cookie.delete('currenteventpin')
@@ -119,7 +119,10 @@
             }
         },
         beforeMount() {
-            
+            if (this.$cookie.get('LoggedInHost') != 'True') {
+                this.$router.push({ name: 'Home' })
+                return;
+            }
             
 
             this.getData();

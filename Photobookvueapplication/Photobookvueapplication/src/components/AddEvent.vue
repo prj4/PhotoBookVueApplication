@@ -4,7 +4,7 @@
             <h1>Add Event</h1> 
             <input class="textbox" type="text" v-model="EventName" placeholder="Event Name" name="name"/> <br /> <br />
             <input class="textbox" type="text" v-model="EventLocation" placeholder="Location" name="location"/> <br /> <br />
-            <input class="bigtextbox" type="text" v-model="EventDescription" placeholder="Description" name="description"/> <br /> <br />
+            <textarea class="bigtextbox" type="text" v-model="EventDescription" placeholder="Description" name="description"/> <br /> <br />
             <input class="textbox" type="datetime-local" v-model="StartDate" placeholder="Start Date" name="startDate"/> <br /> <br />
             <input class="textbox" type="datetime-local" v-model="EndDate" placeholder="End Date" name="endDate"/> <br /> <br />
             <input class="button" type="button" v-on:click="postAddEvent" value="Click to create event" width="100px" Height="50px" /> <br />
@@ -52,7 +52,7 @@
                         alert("Unable to create event, try again later")
                     }
                     else {
-                        alert("Email or password was wrong" + response.status)
+                        alert("Unable to create event")
                     }
 
                 })
@@ -68,6 +68,12 @@
                 StartDate: null,
                 EndDate: null
 
+            }
+        },
+        beforeMount() {
+            if (this.$cookie.get('LoggedInHost') != 'True') {
+                this.$router.push({ name: 'Home' })
+                return;
             }
         },
         name: 'AddEvent',

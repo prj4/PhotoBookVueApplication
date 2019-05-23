@@ -2,11 +2,11 @@
     <div id="WrapperInternalPage" class="Wrapper">
 
         <div class="bigphotooutercontainer" :key="BigPhoto">
-            <div class="bigphotoinnecontainer">
-                <a :href="BigPhoto" download>
+            
+                <a class="bigphotoinnecontainer" :href="BigPhoto" download>
                     <img class="BigPhoto" :src="BigPhoto"/>
                 </a>
-            </div>
+            
         </div>
 
 
@@ -27,23 +27,44 @@
         methods: {
             updatepage: async function () {
                 var vuecomponent = this;
-                let specificpictureurl = 'https://photobookwebapi1.azurewebsites.net/api/Picture/' + vuecomponent.EventPin + '/' + vuecomponent.currentPictureID;
-                    await fetch(specificpictureurl, {
-                        credentials: 'include',
-                        mode: 'cors'
+                let previewURL = 'https://photobookwebapi1.azurewebsites.net/api/Picture/Preview/' + vuecomponent.EventPin + '/' + vuecomponent.currentPictureID;
+                await fetch(previewURL, {
+                    credentials: 'include',
+                    mode: 'cors'
+                })
+                    .then(function (response) {
+                        if (response.status == '200') {
+
+                            response.blob()
+                                .then(image => {
+                                    // Then create a local URL for that image and print it
+                                    vuecomponent.BigPhoto = URL.createObjectURL(image);
+
+                                })
+                        }
+
                     })
-                        .then(function (response) {
-                            if (response.status == '200') {
-                                vuecomponent.Photographer = response.headers.get("content-disposition");
-                                response.blob()
-                                    .then(image => {
+
+                let specificpictureurl = 'https://photobookwebapi1.azurewebsites.net/api/Picture/' + vuecomponent.EventPin + '/' + vuecomponent.currentPictureID;
+                var thisPictureID = vuecomponent.currentPictureID;
+
+                await fetch(specificpictureurl, {
+                    credentials: 'include',
+                    mode: 'cors'
+                })
+                    .then(function (response) {
+                        if (response.status == '200') {
+                            response.blob()
+                                .then(image => {
+                                    if (thisPictureID == vuecomponent.currentPictureID) {
                                         // Then create a local URL for that image and print it
                                         vuecomponent.BigPhoto = URL.createObjectURL(image);
-                                        
-                                    })
-                            }
-                            
-                        })
+                                    }
+
+                                })
+                        }
+
+                    })
             },
             nextPhoto: function () {
                 var json_str = this.$cookie.get('currenteventphotoids');
@@ -151,6 +172,11 @@
             }
         },
         beforeMount() {
+            if (this.$cookie.get('LoggedInHost') != 'True') {
+                this.$router.push({ name: 'Home' })
+                return;
+            }
+
             if (this.$route.params.PictureIDindex == null) {
                 this.currentPictureIDindex = this.$cookie.get('currentHostBigPhoto');
             }
