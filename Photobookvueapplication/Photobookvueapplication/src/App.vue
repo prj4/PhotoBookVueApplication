@@ -4,14 +4,14 @@
 
             <router-link tag="img" src="images/titleonlyp.png" class="alignleft" to="/"></router-link>
             <router-link class="alignleft" to="/HostSignUp"> Signup as Event Host</router-link>
-            
-            <a class="alignright"> Privacy</a>
-            <a class="alignright"> About Photobook</a>
+
+            <router-link class="alignright" to="/Privacy">Privacy</router-link>
+            <router-link class="alignright" to="/AboutPhotobook">About Photobook</router-link>
 
 
 
         </header>
-        <br />
+        
         <router-view></router-view>
     </div>
 </template>

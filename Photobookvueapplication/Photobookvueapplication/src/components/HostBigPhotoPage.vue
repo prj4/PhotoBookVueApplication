@@ -9,7 +9,6 @@
             
         </div>
 
-
         <div class="bigphotobuttons">
             <button class="smallbutton" @click="previousPhoto">Previus photo</button>
             <button class="smallbutton" @click="deletePhoto">Delete</button>
@@ -37,7 +36,7 @@
 
                             response.blob()
                                 .then(image => {
-                                    // Then create a local URL for that image and print it
+                                    // Then create a local URL for that image
                                     vuecomponent.BigPhoto = URL.createObjectURL(image);
 
                                 })
@@ -57,7 +56,7 @@
                             response.blob()
                                 .then(image => {
                                     if (thisPictureID == vuecomponent.currentPictureID) {
-                                        // Then create a local URL for that image and print it
+                                        // Then create a local URL for that image
                                         vuecomponent.BigPhoto = URL.createObjectURL(image);
                                     }
 
@@ -141,7 +140,6 @@
                                     var arrayLength = data.body.pictureList.length;
                                     
                                      if (arrayLength == 0) {
-                                         // vuecomponent.$router.push({ path: `/HostEventPage` })
                                          vuecomponent.$router.go(-1);
                                      }
                                      else if (vuecomponent.currentPictureIDindex == arrayLength) {
@@ -184,15 +182,14 @@
                 this.$cookie.set('currentHostBigPhoto', this.$route.params.PictureIDindex);
                 this.currentPictureIDindex = this.$cookie.get('currentHostBigPhoto');
             }
+
             this.EventPin = this.$cookie.get('currenteventpin');
 
             var json_str = this.$cookie.get('currenteventphotoids');
             this.EventPhotoIDs = JSON.parse(json_str);
             var arr = JSON.parse(json_str);
-
             this.currentPictureID = arr[this.currentPictureIDindex];
-
-
+            
             this.updatepage();
         }
     }

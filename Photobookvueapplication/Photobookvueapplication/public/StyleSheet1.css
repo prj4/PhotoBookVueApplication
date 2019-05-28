@@ -1,7 +1,6 @@
 ﻿body {
     font-size: 2rem;
     width: 99%;
-    /*background-image: url('../images/loginpagebackground.jpg');*/
     background-image: url('https://picsum.photos/2000/1500');
     background-repeat: no-repeat;
     --background-size: 100%;
@@ -58,23 +57,23 @@
     align-self: center;
     overflow-x: auto;
     overflow: auto;
-    max-height: 75vh;
+    max-height: 70vh;
 }
 
-    .ContentBox a{
-        font-size: 17px;
+.ContentBox a{
+    font-size: 17px;
 
-    }
+}
 
-    .topnav a {
-        --float: left;
-        cursor: default;
-        color: #f2f2f2;
-        text-align: center;
-        padding: 14px 16px;
-        font-size: 17px;
-        text-decoration: none;
-    }
+.topnav a {
+    --float: left;
+    cursor: default;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    font-size: 17px;
+    text-decoration: none;
+}
 
 .topnav a:hover {
     background-color: #f4766f;
@@ -88,11 +87,6 @@
     border-radius: 10px;
 }
 
-
-
-h1 {
-    
-}
 
 .textbox {
     width: 200px;
@@ -237,13 +231,11 @@ h1 {
 
 
 .inputlabel {
-    
+    display: inline-block;
     width: 130px;
     max-height: 30px;
     height:22px;
     padding-top: 3px;
-    padding-right:18px;
-    padding-left: 18px;
     padding-bottom: 3px;
     margin: 5px;
     font-size: 14px;
@@ -286,16 +278,10 @@ h1 {
     
 }
 
-img {
-    
-}
-
 .bigphotoinnecontainer {
     height: 75vh;
     max-width: 100%;
     margin: 10px;
-    /* height: 174px; */
-    /* overflow: hidden; */
     position: relative;
     object-fit: contain;
     display: flex;
@@ -306,12 +292,9 @@ img {
 .BigPhoto {
     max-width: 100%;
     max-height: 100%;
-    zoom: 4;    
+    zoom: 10;    
 }
 
 .bigphotobuttons {
     margin:10px;
-}
-
-body {
 }

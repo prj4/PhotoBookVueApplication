@@ -5,10 +5,9 @@
             <div class="aligncenter">
                 <label class="inputlabel" for="file">
                     <span v-if="UploadPhotos.length > 0">{{UploadPhotos.length}} images selected</span>
-                    <span v-else>Select images</span>
+                    <span v-else>Upload</span>
                 </label>
                 <input name="file" id="file" class="inputfile" accept="image/*" type="file" @change="onFileChange" multiple>
-                <button class="smallbutton" @click="onUpload">Upload</button>
                 <button class="smallbutton" @click="downloadPhotos">Download All</button>
                 <button class="smallbutton" @click="logout"> Logout </button>
             </div>
@@ -43,7 +42,6 @@
 
         methods: {
             downloadPhotos: function () {
-                var ProgressBar = require('progressbar.js')
 
                 var zip = new JSZip();
                 var count = 0;
@@ -68,8 +66,8 @@
                                         FullSizePhotoArray[e] = URL.createObjectURL(image);
 
                                         var filename = FullSizePhotoArray[e];
-                                        //Her skal tilføjes azurestring
-                                        filename = filename.replace(/[\/\*\|\:\<\>\?\"\\]/gi, '').replace("blobhttplocalhost1337", "");
+                                        
+                                        filename = filename.replace(/[\/\*\|\:\<\>\?\"\\]/gi, '').replace("blobhttplocalhost1337", "").replace("blobhttpsphotobookvue.z16.web.core.windows.net", "");;
                                         // loading a file and add it in a zip file
                                         JSZipUtils.getBinaryContent(FullSizePhotoArray[e], function (err, data) {
                                             if (err) {
@@ -105,6 +103,7 @@
                 for (var i = 0; i < event.target.files.length; i++) {
                     this.$set(this.UploadPhotos, i, event.target.files[i]);
                 }
+                this.onUpload();
             },
             readFile: function (file) {
                 return new Promise((resolve, reject) => {
@@ -163,8 +162,6 @@
 
                 }
 
-
-
                 while (this.UploadPhotos.length != 0) {
                     this.UploadPhotos.pop();
                 }
@@ -212,8 +209,7 @@
                 for (let e = 0; e < vuecomponent.EventPhotoIDs.length; e++) {
                     
                     let specificpictureurl = 'https://photobookwebapi1.azurewebsites.net/api/Picture/Preview/' + vuecomponent.EventPin + '/' + vuecomponent.EventPhotoIDs[e];
-
-
+                    
                     await fetch(specificpictureurl, {
                         credentials: 'include',
                         mode: 'cors'
@@ -222,7 +218,6 @@
                             if (response.status == '200') {
                                 response.blob()
                                     .then(image => {
-                                        // Then create a local URL for that image and print it 
                                         
                                         vuecomponent.$set(vuecomponent.EventPhotos, e, URL.createObjectURL(image));
                                         
@@ -279,8 +274,7 @@
             },
             logout: function () {
                 var url = 'https://photobookwebapi1.azurewebsites.net/api/Account/Logout';
-
-                //var datarecieved = this.datarecievedp;
+                
                 var router = this.$router;
                 var cookie = this.$cookie;
 
@@ -329,9 +323,7 @@
                 this.$router.push({ name: 'Home' })
                 return;
             }
-
-
-
+            
             if (this.$cookie.get('currenteventpin') == null) {
                 this.$cookie.set('currenteventpin', this.$route.params.EventPin)
 
@@ -347,14 +339,11 @@
             else if (this.$route.params.GuestName != null && this.$cookie.get('currentguest') != this.$route.params.GuestName) {
                 this.$cookie.set('currentguest', this.$route.params.GuestName);
             }
-
-      
-
+            
             this.EventPin = this.$cookie.get('currenteventpin');
             this.GuestName = this.$cookie.get('currentguest');
             this.getEventInfo();
-            //this.thisEventName = this.$cookie.get('currenteventname');
-
+           
             this.getEventPhotos();
         },
         mounted() {
@@ -362,9 +351,8 @@
             this.bar = new ProgressBar.Circle(container, {
                 strokeWidth: 10,
                 easing: 'easeInOut',
-                duration: 1400,
+                duration: 500,
                 color: '#f4766f',
-                //trailColor: '#f4766f',
                 trailWidth: 0,
                 svgStyle: null
             });

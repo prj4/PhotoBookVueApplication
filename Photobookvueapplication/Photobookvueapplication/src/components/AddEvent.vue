@@ -17,8 +17,6 @@
 <script>
     export default {
 
-    //v-on:click="postAddEvent"
-        //method="post" action="https://photobookwebapi1.azurewebsites.net/api/Event"
         methods: {
             postAddEvent: function () {
                 var newurl = 'https://photobookwebapi1.azurewebsites.net/api/Event';
@@ -31,8 +29,7 @@
                     startDate: this.StartDate,
                     endDate: this.EndDate
                 };
-
-                //var datarecieved = this.datarecievedp;
+                
                 var router = this.$router;
 
                 fetch(newurl, {

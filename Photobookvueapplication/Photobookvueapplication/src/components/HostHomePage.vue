@@ -37,8 +37,7 @@
         methods: {
             Logout: function () {
                 var url = 'https://photobookwebapi1.azurewebsites.net/api/Account/Logout';
-
-                //var datarecieved = this.datarecievedp;
+                
                 var router = this.$router;
                 var cookie = this.$cookie;
                 
@@ -176,5 +175,6 @@
             text-align: left;
             vertical-align: top
         }
+    
     
 </style>

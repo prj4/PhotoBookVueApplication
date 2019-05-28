@@ -9,6 +9,8 @@ import GuestEventPage from "./components/GuestEventPage.vue";
 import HostEventPage from "./components/HostEventPage.vue";
 import HostBigPhotoPage from "./components/HostBigPhotoPage.vue";
 import GuestBigPhotoPage from "./components/GuestBigPhotoPage.vue";
+import AboutPhotobook from "./components/AboutPhotobook.vue";
+import Privacy from "./components/Privacy.vue";
 
 Vue.use(Router);
 
@@ -63,6 +65,16 @@ export default new Router({
             name: "GuestBigPhotoPage",
             component: GuestBigPhotoPage,
             props: true
+        },
+        {
+            path: "/Privacy",
+            name: "Privacy",
+            component: Privacy
+        },
+        {
+            path: "/AboutPhotobook",
+            name: "AboutPhotobook",
+            component: AboutPhotobook,
         }
         
     ]

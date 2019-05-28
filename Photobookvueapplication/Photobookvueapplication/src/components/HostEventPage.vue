@@ -6,11 +6,10 @@
             <div>
                 <label class="inputlabel" for="file">
                     <span v-if="UploadPhotos.length > 0">{{UploadPhotos.length}} images selected</span>
-                    <span v-else>Select images</span>
+                    <span v-else>Upload</span>
                 </label>
 
                 <input name="file" id="file" class="inputfile" accept="image/*" type="file" @change="onFileChange" multiple>
-                <button class="smallbutton" @click="onUpload">Upload</button>
                 <button class="smallbutton" @click="deleteEvent">Delete Event</button>
                 <button class="smallbutton" @click="downloadPhotos">Download All</button>
             </div>
@@ -48,17 +47,13 @@
 
         methods: {
             downloadPhotos: function () {
-
-                var ProgressBar = require('progressbar.js')
-
+                
                 var zip = new JSZip();
                 var count = 0;
                 var zipFilename = "Photos.zip";
                 var vuecomponent = this;
                 let FullSizePhotoArray = [/*...*/]
-
                 
-
                 for (let e = 0; e < vuecomponent.EventPhotoIDs.length; e++) {
 
                     let specificpictureurl = 'https://photobookwebapi1.azurewebsites.net/api/Picture/' + vuecomponent.EventPin + '/' + vuecomponent.EventPhotoIDs[e];
@@ -71,12 +66,10 @@
                             if (response.status == '200') {
                                 response.blob()
                                     .then(image => {
-                                        // Then create a local URL for that image and print it 
                                         FullSizePhotoArray[e] = URL.createObjectURL(image);
 
                                         var filename = FullSizePhotoArray[e];
-                                        //Her skal tilføjes azurestring
-                                        filename = filename.replace(/[\/\*\|\:\<\>\?\"\\]/gi, '').replace("blobhttplocalhost1337", "");
+                                        filename = filename.replace(/[\/\*\|\:\<\>\?\"\\]/gi, '').replace("blobhttplocalhost1337", "").replace("blobhttpsphotobookvue.z16.web.core.windows.net","");
                                         // loading a file and add it in a zip file
                                         JSZipUtils.getBinaryContent(FullSizePhotoArray[e], function (err, data) {
                                             if (err) {
@@ -133,6 +126,7 @@
                 for (var i = 0; i < event.target.files.length; i++) {
                     this.$set(this.UploadPhotos, i, event.target.files[i]);
                 }
+                this.onUpload();
             },
             readFile: function (file) {
                 return new Promise((resolve, reject) => {
@@ -158,9 +152,7 @@
                 for( let i = 0; i < this.UploadPhotos.length; i++ ){
                 
                     vuecomponent.bar.animate(((i+1) / this.UploadPhotos.length));
-                    
-
-                    let base64Img = await this.readFile(this.UploadPhotos[i])
+                     let base64Img = await this.readFile(this.UploadPhotos[i])
 
                         let dataToBeSend = {
                             pictureString: base64Img,
@@ -191,8 +183,6 @@
                        
                 }
 
-               
-                
                 while (this.UploadPhotos.length != 0) {
                     this.UploadPhotos.pop();
                 }
@@ -249,7 +239,6 @@
                             if (response.status == '200') {
                                 response.blob()
                                     .then(image => {
-                                        // Then create a local URL for that image and print it 
                                         vuecomponent.$set(vuecomponent.EventPhotos, e, URL.createObjectURL(image));
 
                                     })
@@ -264,7 +253,6 @@
                 logout: function () {
                 var url = 'https://photobookwebapi1.azurewebsites.net/api/Account/Logout';
 
-                //var datarecieved = this.datarecievedp;
                 var router = this.$router;
                 var cookie = this.$cookie;
 
@@ -377,9 +365,8 @@
             this.bar = new ProgressBar.Circle(container, {
                 strokeWidth: 10,
                 easing: 'easeInOut',
-                duration: 1400,
+                duration: 500,
                 color: '#f4766f',
-                //trailColor: '#f4766f',
                 trailWidth: 0,
                 svgStyle: null
             });

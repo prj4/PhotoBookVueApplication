@@ -5,11 +5,11 @@
             <form>
                 <input class="textbox" type="text" placeholder="Your Name" v-model="GuestName" /> <br /> <br />
                 <input class="textbox" type="text" placeholder="Event Pin" v-model="EventPin" /> <br /> <br />
-                <input class="button" type="button" value="Click to login to event" v-on:click="GuestLogin" /> <br /> <br /> <br />
+                <input class="button" type="button" value="Login to event as guest" v-on:click="GuestLogin" /> <br /> <br /> <br />
             </form>
 
             <router-link to="/hostlogin">
-                <button class="button" type="button" width="100px" Height="50px"> Login as Host</button>
+                <button class="button" type="button" width="100px" Height="50px"> Login as host</button>
             </router-link>
             <br />
 
@@ -19,7 +19,7 @@
 
 <script>
     export default {
-        //name: 'Home',
+     
         methods: {
             GuestLogin: function () {
                 this.logout();
@@ -46,7 +46,6 @@
 
                     .then(function (response) {
                         if (response.status == '200' || response.status == '201') {
-                            //alert('You are now signed in as a Guest')
                             cookie.set('LoggedInGuest', 'True');
                             router.push({ name: 'GuestEventPage', params: { GuestName: dataToBeSend.Name, EventPin: dataToBeSend.Pin } })
                         }
@@ -58,8 +57,7 @@
             },
             logout: function () {
                 var url = 'https://photobookwebapi1.azurewebsites.net/api/Account/Logout';
-
-                //var datarecieved = this.datarecievedp;
+                
                 var router = this.$router;
                 var cookie = this.$cookie;
 

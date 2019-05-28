@@ -6,7 +6,7 @@
             <input name="Email" class="textbox" type="email" v-model="HostEmail" placeholder="Email" /> <br /> <br />
             <input name="Password" class="textbox" type="password" v-model="HostPassword" placeholder="Password" /> <br /> <br />
             <input name="ConfirmPassword" class="textbox" type="password" v-model="HostConfirmPassword" placeholder="Confirm Password" /> <br /> <br />
-            <input class="button" v-on:click="postHostSignUp" type="button" value="Click to sign up as Host" width="100px" Height="50px" /><br />
+            <input class="button" v-on:click="postHostSignUp" type="button" value="Click to sign up as an host" width="100px" Height="50px" /><br />
         </form>
 
 
@@ -19,15 +19,12 @@
         methods: {
 
             postHostSignUp: function () {
-
                 var url = 'https://photobookwebapi1.azurewebsites.net/api/Account/Host'
-
                 var data = {
                     email: this.HostEmail,
                     password: this.HostPassword,
                     name: this.HostName
                 }
-                    
                     
                 if (this.HostName === null) {
                     alert("Please enter a valid name");
@@ -77,9 +74,7 @@
             },
             logout: function () {
                 var url = 'https://photobookwebapi1.azurewebsites.net/api/Account/Logout';
-
-                //var datarecieved = this.datarecievedp;
-                var router = this.$router;
+                
                 var cookie = this.$cookie;
 
                 fetch(url, {
@@ -111,8 +106,7 @@
                     userName: this.HostEmail,
                     passWord: this.HostPassword
                 };
-
-                //var datarecieved = this.datarecievedp;
+                
                 var router = this.$router;
                 var cookie = this.$cookie;
                 var vuecomponent = this;

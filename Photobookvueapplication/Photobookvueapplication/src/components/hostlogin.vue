@@ -31,7 +31,6 @@
                     
                 };
 
-                //var datarecieved = this.datarecievedp;
                 var router = this.$router;
                 var cookie = this.$cookie;
                 var vuecomponent = this;
@@ -64,9 +63,7 @@
                 return new Promise((resolve,reject) => {
 
                     var url = 'https://photobookwebapi1.azurewebsites.net/api/Account/Logout';
-
-                    //var datarecieved = this.datarecievedp;
-                    var router = this.$router;
+                    
                     var cookie = this.$cookie;
 
                      fetch(url, {
